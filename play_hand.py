@@ -10,19 +10,32 @@ Created on Sun Apr  8 21:16:34 2018
 def play_hand(players,starting_money,hands):
     from deal_hand import simple_hand
     from read_hand import read_hand
-
+    
     #we want these things to move from hand to hand
+    
+    #Set up cards
+    class Card:
+        def __init__ (self,value,suit):
+            self.value=value
+            self.suit=suit
+        
+    suits=['heart','diamond','spade','club']
+    card_value=[2,3,4,5,6,7,8,9,10,11,12,13,14]
+
     players_list=[]
     players_money={}
     hands_played=0
     #create a dictonary that holds all of the poker hand rankings
     poker_hands={'high card':1,'pair':2,'Two pair':3,'Three of a kind':4,'Striaght':5,'Flush':6,'Full House':7,'Four of a kind':8,'Straight Flush':9,'Royal Flush':10}
+
     for h in range(0,hands):
         #set up initial money
         if hands_played==0:
             for x in range(0,players):
                 players_list.append("player{0}".format(x))
                 players_money[players_list[x]]=starting_money
+        #Not sure why I need to re-initialize the deck everytime 
+        deck=[Card(value,suit) for value in card_value for suit in suits]
         hand=simple_hand(deck,players)
         #player hands
         players_hand=read_hand('players',hand,players)
@@ -41,7 +54,7 @@ def play_hand(players,starting_money,hands):
         for x in range(0,players):
             current_player=players_list[x]
             #ante bet
-            bets[current_player]=5
+            bets[current_player]=+5
             players_money[current_player]-=5
             #Initial cards bet
             #this loop is just looking at our own cards, no knowledge of other players
@@ -73,15 +86,11 @@ def play_hand(players,starting_money,hands):
             elif final_hand[current_player]['hv'] < final_hand['dealer']['hv']:
                 players_money[current_player]=players_money[current_player]
 
+        print(final_hand)
+        print(players_money)
         hands_played+=1
-        next
         
-    print(final_hand)
-    print(players_money)
 
-
-
-            
         
     
             
