@@ -20,13 +20,13 @@ def simple_hand(deck,players):
         d[players_list[x]]=random.choice(hand,size=2,replace=False)
         print(players_list[x],"hand is",vars(d[players_list[x]][0]),'and',vars(d[players_list[x]][1]))
         
-    print('dealer hand is', vars(d_hand[0]),'and',vars(d_hand[1]))
+#    print('dealer hand is', vars(d_hand[0]),'and',vars(d_hand[1]))
     
     flop=random.choice(hand,size=3,replace=False)
     draw=random.choice(hand,size=2,replace=False)
     
-    print('flop is',vars(flop[0]),vars(flop[1]),vars(flop[2]))
-    print('Draw is',vars(draw[0]),vars(draw[1]))
+#    print('flop is',vars(flop[0]),vars(flop[1]),vars(flop[2]))
+#    print('Draw is',vars(draw[0]),vars(draw[1]))
     
     community={'flop':flop,'draw':draw}
     
