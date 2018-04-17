@@ -20,9 +20,9 @@ def simple_hand(deck,players):
     for x in range(0,players):
         players_list.append("player{0}".format(x))
         d[players_list[x]]=[hand.pop(random.randrange(len(hand))) for _ in range(2)]
-        print(players_list[x],"hand is",vars(d[players_list[x]][0]),'and',vars(d[players_list[x]][1]))
+        #print(players_list[x],"hand is",vars(d[players_list[x]][0]),'and',vars(d[players_list[x]][1]))
         
-    print('dealer hand is', vars(d_hand[0]),'and',vars(d_hand[1]))
+    #print('dealer hand is', vars(d_hand[0]),'and',vars(d_hand[1]))
     
     flop=[hand.pop(random.randrange(len(hand))) for _ in range(3)]
     draw=[hand.pop(random.randrange(len(hand))) for _ in range(2)]

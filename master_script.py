@@ -13,9 +13,8 @@ import random
 
 from play_hand import play_hand
 
-play_hand(5,200,100)
+play_hand(players=5,starting_money=200,hands=10,table_min=5)
 
-    
     
     
     
