@@ -13,15 +13,14 @@ def check_flush(hand_suit):
         return False
 
 def check_straight(hand_value):
-    straight_values=[]
-    low_card=min(hand_value)
-    straight_values.append(low_card)
-    straight_values.append(low_card+1)
-    straight_values.append(low_card+2)
-    straight_values.append(low_card+3)
-    straight_values.append(low_card+4)
-    if hand_value == straight_values:
-        return True
+    #create a set of values
+    set_vals=list(set(hand_value))
+    #figure out the lowest 5 cards and highest 5 cards
+    if len(set_vals) >=5:
+        low_set=set_vals[0:5]
+        high_set=set_vals[(len(set_vals)-5):len(set_vals)]
+        if (max(low_set)-min(low_set)== 4) or (max(high_set)-min(high_set)==4 ):
+            return True
     return False
 
 def check_straightflush(hand_value,hand_suit):

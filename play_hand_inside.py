@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Apr  8 21:16:34 2018
+Created on Wed Apr 18 11:23:59 2018
 
 @author: 583185
 """
 
-#Make bets on our intial hands and see if we won
-
-def play_hand(players,starting_money,hands,table_min):
+def play_hand_inside(players,starting_money,hands,table_min):
     from deal_hand import simple_hand
     from read_hand import read_hand
     from read_hand_flop import read_hand_flop
@@ -48,6 +46,28 @@ def play_hand(players,starting_money,hands,table_min):
         #player initial hands
         players_hand=read_hand('players',hand,players)
         
+        #initial values and suits
+        init_player_value=[]
+        init_player_suit=[]
+        #create values of all values and suits
+        for x in range(0,players):
+            current_player=players_list[x]
+            card1=vars(hand[current_player][0])
+            card2=vars(hand[current_player][1])
+            #creating lists of hands
+            init_player_value.append(card1['value'])
+            init_player_value.append(card2['value'])
+            init_player_suit.append(card1['suit'])
+            init_player_suit.append(card2['suit'])
+        
+        #figure out how many 10s+face cards at out
+        
+        value_cards=0
+        for c in range(10,14):
+            num=init_player_value.count(c)
+            value_cards+=num
+        
+        
         #player flop hands
         players_hand_flop=read_hand_flop('players',hand,players)
         
@@ -76,11 +96,15 @@ def play_hand(players,starting_money,hands,table_min):
             
             
             #Initial cards bet
-            #this loop is just looking at our own cards, no knowledge of other players
+            #This will make a bet if a player has a hand, if they have a Queen or above OR if they have a 10 and Jack and there are a number of facecards already out.
+            
             if players_hand[current_player]['hand']=='pair':
                 bets[current_player]+=(4*table_min)
                 players_money[current_player]-=(4*table_min)
             elif players_hand[current_player]['hand']=='high card' and players_hand[current_player]['value']>=12:
+                bets[current_player]+=(3*table_min)
+                players_money[current_player]-=(3*table_min)
+            elif players_hand[current_player]['hand']=='high card' and players_hand[current_player]['value']>=10 and value_cards > 5:
                 bets[current_player]+=(3*table_min)
                 players_money[current_player]-=(3*table_min)
                 
@@ -100,8 +124,6 @@ def play_hand(players,starting_money,hands,table_min):
             if bets[current_player] == 0 and final_hand[current_player]['hv'] > 1:
                 bets[current_player]+=(table_min)
                 players_money[current_player]-=(table_min)
-            
-            #build in folding logic?
                 
             
             
@@ -162,8 +184,3 @@ def play_hand(players,starting_money,hands,table_min):
         print(players_money)
         
     return(players_winning)
-        
-    
-            
-    
-        
